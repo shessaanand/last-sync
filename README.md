@@ -1,6 +1,6 @@
 # LastSync
 
-A lightweight desktop app that syncs your Spotify playback to a friend's Last.fm scrobbles in real time — so you can listen along to exactly what they're hearing, automatically.
+A lightweight desktop app that syncs your Spotify playback to a friend's Last.fm scrobbles in real time so that you can listen along to exactly what they're hearing, automatically.
 
 Built with Python, PyQt6, Spotipy, and the Last.fm API.
 
@@ -8,7 +8,7 @@ Built with Python, PyQt6, Spotipy, and the Last.fm API.
 
 ## What it does
 
-LastSync polls a Last.fm user's profile every 30 seconds to see what they're currently scrobbling. When it detects a new track, it searches Spotify for that song and plays it on your active Spotify device — keeping you in sync with whatever they're listening to, hands-free.
+LastSync polls a Last.fm user's profile every 30 seconds to see what they're currently scrobbling. When it detects a new track, it searches Spotify for that song and plays it on your active Spotify device, keeping you in sync with whatever they're listening to, hands-free.
 
 ---
 
@@ -27,8 +27,8 @@ LastSync polls a Last.fm user's profile every 30 seconds to see what they're cur
 
 - Python 3.8 or higher
 - A **Spotify account** with an active device (desktop app, mobile, or web player open)
-- A **Spotify Developer app** — get one at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-- A **Last.fm API key** — get one at [last.fm/api](https://www.last.fm/api)
+- A **Spotify Developer app**: get one at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
+- A **Last.fm API key**: get one at [last.fm/api](https://www.last.fm/api)
 - The person you're syncing with must have a **public Last.fm profile**
 
 ---
@@ -56,7 +56,7 @@ pip install pyqt6 spotipy requests
 | `spotipy` | Spotify Web API wrapper |
 | `requests` | HTTP requests to Last.fm API |
 
-`sys` and `time` are part of Python's standard library — no installation needed.
+`sys` and `time` are part of Python's standard library and no installation is needed.
 
 ### 3. Set up your credentials
 
@@ -82,7 +82,7 @@ See the **Getting Credentials** section below for how to obtain each one.
 
 ### Last.fm API Key
 1. Go to [last.fm/api/account/create](https://www.last.fm/api/account/create)
-2. Fill in the form — the application name and description can be anything
+2. Fill in the form (the application name and description can be anything)
 3. Copy the **API key** you're given
 
 ### Spotify Client ID & Secret
