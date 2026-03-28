@@ -1,0 +1,16 @@
+# Credentials - never upload this
+.env
+
+# Spotify auth cache
+.cache
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
