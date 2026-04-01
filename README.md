@@ -1,140 +1,229 @@
+---
+
 # LastSync
 
-A lightweight desktop app that syncs your Spotify playback to a friend's Last.fm scrobbles in real time so that you can listen along to exactly what they're hearing, automatically.
+Listen along with your friends.
 
-Built with Python, PyQt6, Spotipy, and the Last.fm API.
+LastSync is a desktop app that automatically plays whatever someone is listening to on Last.fm — on your Spotify — in near real time.
 
----
-
-## What it does
-
-LastSync polls a Last.fm user's profile every 30 seconds to see what they're currently scrobbling. When it detects a new track, it searches Spotify for that song and plays it on your active Spotify device, keeping you in sync with whatever they're listening to, hands-free.
+No manual searching. No switching tracks yourself. Just press start.
 
 ---
 
-## Features
+## What this is for
 
-- Real-time sync with any public Last.fm profile
-- Clean dark-themed desktop UI built with PyQt6
-- Pulsing indicator showing live sync status
-- Displays the current track name and artist
-- Gracefully handles tracks not available on Spotify
-- Start and stop syncing at any time with one click
+If you’ve ever wanted to:
+
+* listen to the exact same music as a friend
+* follow someone’s music taste live
+* or just passively vibe with what someone is playing
+
+This app does that automatically.
 
 ---
 
-## Requirements
+## How it works (simple)
 
-- Python 3.8 or higher
-- A **Spotify account** with an active device (desktop app, mobile, or web player open)
-- A **Spotify Developer app**: get one at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-- A **Last.fm API key**: get one at [last.fm/api](https://www.last.fm/api)
-- The person you're syncing with must have a **public Last.fm profile**
+* You enter someone’s Last.fm username
+* The app checks what they’re currently playing
+* When they play a song → your Spotify plays the same song
+* It even jumps to roughly the same timestamp
+
+That’s it.
+
+---
+
+## What you need before starting
+
+You only need to set this up once.
+
+### 1. Spotify (required)
+
+* You must have a Spotify account
+* Spotify must be open on your device (phone, desktop, or browser)
+
+---
+
+### 2. Last.fm API key (free)
+
+Get it here: [https://www.last.fm/api/account/create](https://www.last.fm/api/account/create)
+
+* Fill the form (anything works)
+* Copy the API key
+
+---
+
+### 3. Spotify Developer App (free)
+
+Go here: [https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
+
+Steps:
+
+1. Click **Create App**
+2. Name it anything
+3. Add this EXACT redirect URI:
+
+   ```
+   http://127.0.0.1:8888/callback
+   ```
+4. Save
+5. Copy:
+
+   * Client ID
+   * Client Secret
 
 ---
 
 ## Installation
 
-### 1. Clone or download the repo
+### Step 1 — Download / clone
 
-```
+```bash
 git clone https://github.com/YOURUSERNAME/LastSync.git
 cd LastSync
 ```
 
-### 2. Install dependencies
-
-All required packages can be installed with:
-
-```
-pip install pyqt6 spotipy requests
-```
-
-| Package | Purpose |
-|---|---|
-| `pyqt6` | Desktop UI framework |
-| `spotipy` | Spotify Web API wrapper |
-| `requests` | HTTP requests to Last.fm API |
-
-`sys` and `time` are part of Python's standard library and no installation is needed.
-
-### 3. Set up your credentials
-
-Open `lastsync.py` and fill in your credentials at the top of the file:
-
-```python
-LASTFM_API_KEY = "your_lastfm_api_key"
-LASTFM_USER    = "the_lastfm_username_to_sync_with"
-
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id="your_spotify_client_id",
-    client_secret="your_spotify_client_secret",
-    redirect_uri="http://127.0.0.1:8888/callback",
-    scope="user-modify-playback-state"
-))
-```
-
-See the **Getting Credentials** section below for how to obtain each one.
-
 ---
 
-## Getting Credentials
+### Step 2 — Install dependencies
 
-### Last.fm API Key
-1. Go to [last.fm/api/account/create](https://www.last.fm/api/account/create)
-2. Fill in the form (the application name and description can be anything)
-3. Copy the **API key** you're given
-
-### Spotify Client ID & Secret
-1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and log in
-2. Click **Create App**
-3. Fill in any name and description
-4. Set the Redirect URI to exactly: `http://127.0.0.1:8888/callback`
-5. Select **Web API** under APIs used
-6. After saving, click into your app and copy the **Client ID** and **Client Secret**
+```bash
+pip install pyqt6 spotipy requests
+```
 
 ---
 
 ## Running the app
 
-Make sure Spotify is open and playing on one of your devices first, then run:
-
-```
+```bash
 python lastsync.py
 ```
 
-On first run, a browser window will open asking you to log into Spotify and grant permission. After approving, you may see a "page not found" error in your browser — that's normal. The app will start running automatically.
+---
 
-Click **START SYNC** in the app window to begin syncing.
+## First-time setup (IMPORTANT)
+
+When the app opens:
+
+1. Click the **⚙ (settings icon)**
+2. Fill in:
+
+   * Last.fm username (the person you want to sync with)
+   * Last.fm API key
+   * Spotify Client ID
+   * Spotify Client Secret
+3. Click **SAVE**
 
 ---
 
-## How it works
+## Using the app
 
-1. Every 30 seconds, the app calls the Last.fm `user.getrecenttracks` API endpoint
-2. It checks if the most recent track has a `nowplaying` flag (meaning it's actively being listened to)
-3. If a new track is detected, it searches the Spotify API for a match by track name and artist
-4. If found, it sends a playback command to your active Spotify device via the Spotify Web API
-5. The UI updates to show the current track and artist
+1. Make sure Spotify is open on your device
+2. Click **START SYNC**
+3. A browser window will open → log into Spotify
+4. Approve access
 
----
+After that:
 
-## Notes & Limitations
+* The app will start syncing automatically
+* You’ll see the track name + progress bar
+* It keeps updating in the background
 
-- **Spotify must be open** on a device before starting — the app cannot start playback from cold
-- **The app will override** whatever you're currently listening to on Spotify
-- **Scrobble delay**: Last.fm scrobbles fire at around the 50% mark of a song, so you'll always be slightly behind the person you're syncing with
-- **Track availability**: if the track isn't on Spotify in your region, the app will show a warning and wait for the next song
-- **Private profiles**: the Last.fm user must have their profile set to public for scrobbles to be visible
+You can minimize it — it runs in the system tray.
 
 ---
 
-## Project structure
+## What you’ll see
 
-```
-LastSync/
-├── lastsync.py       ← main application
-├── .env.example      ← credential template
-├── .gitignore        ← excludes sensitive files from Git
-└── README.md         ← this file
-```
+* Current track + artist
+* Progress bar (shows where you are in the song)
+* Live indicator (green pulse = syncing)
+* Activity log (what’s happening)
+* Poll speed (how often it checks)
+
+---
+
+## Important things to know
+
+* Spotify MUST already be open
+* The app will override whatever you're currently playing
+* There will always be a small delay (Last.fm limitation)
+* Some songs may not exist on Spotify
+* The person’s Last.fm profile must be public
+
+---
+
+## If something doesn’t work
+
+### Nothing is playing
+
+* Check if the person is actually listening to something
+* Last.fm only shows “now playing” sometimes
+
+---
+
+### Spotify doesn’t play anything
+
+* Open Spotify manually
+* Play any song once
+* Then try again
+
+---
+
+### Login issues
+
+* Make sure your redirect URI is exactly:
+
+  ```
+  http://127.0.0.1:8888/callback
+  ```
+
+---
+
+### App crashes
+
+* Make sure you installed:
+
+  ```
+  pip install pyqt6 spotipy requests
+  ```
+
+---
+
+## Files created by the app
+
+After running, you’ll see:
+
+* `.lastsync_config.json` → your saved credentials
+* `.lastsync_spotify_cache` → Spotify login cache
+
+These are stored locally on your system.
+
+---
+
+## Safety note
+
+Do NOT share:
+
+* your Spotify Client Secret
+* your config file
+
+They give access to your account.
+
+---
+
+## What’s next (planned)
+
+* Better song matching
+* Album art
+* Multiple friend sync
+* Device selector
+* .exe version (no Python needed)
+
+---
+
+## That’s it
+
+Start the app, hit sync, and you’re listening along.
+
+---
