@@ -28,10 +28,10 @@ MAX_LOG_ENTRIES = 60
 
 # ── Default credentials ────────────────────────────────────────
 _DEFAULT_CONFIG = {
-    "lastfm_user":           "Sparkleeee27",
-    "lastfm_api_key":        "c1f3d1398fc34d29f67bf6db804906bb",
-    "spotify_client_id":     "a4c88918726247d492e2a8ecc7c47667",
-    "spotify_client_secret": "f3b4bb3c083c4148b8f37ad6c741316e",
+    "lastfm_user":           "<fill>",
+    "lastfm_api_key":        "<fill>",
+    "spotify_client_id":     "<fill>",
+    "spotify_client_secret": "<fill>",
 }
 
 # ── Config helpers ─────────────────────────────────────────────
