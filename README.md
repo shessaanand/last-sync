@@ -212,16 +212,6 @@ They give access to your account.
 
 ---
 
-## What’s next (planned)
-
-* Better song matching
-* Album art
-* Multiple friend sync
-* Device selector
-* .exe version (no Python needed)
-
----
-
 ## That’s it
 
 Start the app, hit sync, and you’re listening along.
